@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Reservation Management System</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">reservation Management System</a>
+
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+	</nav>
+
+	<!-- success message -->
+
+	<div th:if="${param.reserved}">
+
+		<div class="alert alert-info">Table is already reserved, please reserve some other table !</div>
+
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<h1> List Tables</h1>
+		</div>
+
+		<div class="row">
+
+		</div>
+
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+
+					<th> table Number </th>
+					<th> seating capacity </th>
+					<th>duration </th>
+
+					<th> status </th>
+					<th>UserName</th>
+					<th> Actions </th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="table: ${tables}">
+					<td th:text="${table.tableNumber}"></td>
+					<td th:text="${table.seatingCapacity}"></td>
+					<td th:text="${table.duration}"></td>
+
+					<td th:text="${table.status}"></td>
+					<td th:text="${table.userName}"></td>
+					<td>
+						<a th:href="@{/edit/userTable/{id}(id=${table.id})}" class="btn btn-primary">reserve table</a>
+
+						<a th:href="@{/usertable/{id}(id=${table.id})}" class="btn btn-danger">Cancel</a>
+
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</div>
+</body>
+
+</html>
