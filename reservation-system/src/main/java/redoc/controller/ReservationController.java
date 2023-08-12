@@ -16,7 +16,7 @@ import redoc.repository.DTableRepo;
 import redoc.service.DTableService;
 
 @Controller
-public class EmployeeController {
+public class ReservationController {
 
 	@Autowired
 	private DTableService dTableService;
@@ -24,7 +24,6 @@ public class EmployeeController {
 	@Autowired
 	 private DTableRepo repo;
 
-	
 	// 1st api to call adminTables
 	// handler method to handle list students and return mode and view
 	@GetMapping("/adminTableList")
