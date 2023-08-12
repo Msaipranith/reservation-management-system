@@ -20,9 +20,9 @@ public class ReservationController {
 
 	@Autowired
 	private DTableService dTableService;
-	
+
 	@Autowired
-	 private DTableRepo repo;
+	private DTableRepo repo;
 
 	// 1st api to call adminTables
 	// handler method to handle list students and return mode and view
@@ -128,7 +128,6 @@ public class ReservationController {
 		return "adminTableList";
 	}
 
-	
 	@GetMapping("/edit/tables/{id}")
 	public String editTable(@PathVariable Long id, Model model) {
 		model.addAttribute("table", dTableService.getTableDetailsById(id));
@@ -182,14 +181,14 @@ public class ReservationController {
 
 		// get student from database by id
 		DTable dTable = dTableService.getTableDetailsById(id);
-	
+
 		dTable.setId(id);
 		dTable.setTableNumber(dTableData.getTableNumber());
 		dTable.setSeatingCapacity(dTableData.getSeatingCapacity());
 		dTable.setDuration(dTableData.getDuration());
 		dTable.setStatus(dTableData.getStatus());
 		dTable.setUserName(dTableData.getUserName());
-	
+
 		// save updated student object
 		dTableService.updateDTable(dTable);
 		return "redirect:/userTableList";
