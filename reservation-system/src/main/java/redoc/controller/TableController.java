@@ -39,7 +39,7 @@ public class TableController {
 		model.addAttribute("tables", dTableService.getListTables());
 		return "userTableList";
 	}
-	
+
 	@GetMapping("/add/table")
 	public String createTableForm(Model model) {
 
@@ -95,7 +95,7 @@ public class TableController {
 			return "editUser";
 		} else {
 			model.addAttribute("tables", dTableService.getListTables());
-			model.addAttribute("message", "reserve table with in the time");
+			model.addAttribute("message", "already registed, go for some other table");
 
 			return "userTableList";
 
