@@ -21,14 +21,6 @@
 
 	</nav>
 
-	<!-- success message -->
-
-	<div th:if="${param.reserved}">
-
-		<div class="alert alert-info">Table is already reserved, please reserve some other table !</div>
-
-	</div>
-
 	<div class="container">
 		<div class="row">
 			<h1> List Tables</h1>
@@ -53,6 +45,17 @@
 			</thead>
 
 			<tbody>
+
+				<div class="container">
+					<p th:text="${message}" class="alert alert-success"> reserve table as per the slot </p>
+				</div>
+				
+				
+				<div class="container">
+					<p th:text="${cancelReservation}" class="alert alert-danger"> reservation cancelled </p>
+				</div>
+
+
 				<tr th:each="table: ${tables}">
 					<td th:text="${table.tableNumber}"></td>
 					<td th:text="${table.seatingCapacity}"></td>

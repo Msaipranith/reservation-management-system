@@ -27,7 +27,7 @@ public class DTable {
 	private String duration;
 
 	private String status;
-
+	
 	private String userName;
 
 }
