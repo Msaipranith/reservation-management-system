@@ -26,6 +26,15 @@
 			<h1> List Tables</h1>
 		</div>
 
+		<div class="container">
+			<p th:text="${reserveMsg}" class="alert alert-success"> reserve table as per the slot </p>
+		</div>
+		
+		<div class="container">
+			<p th:text="${errMsg}" class="alert alert-warning"> table can't be delted...</p>
+		</div>
+
+
 		<div class="row">
 			<div class="col-lg-3">
 				<a th:href="@{/add/table}" class="btn btn-primary btn-sm mb-3"> Add table</a>
@@ -40,7 +49,7 @@
 
 					<th>upcomming-reservations
 					</th>
-						
+
 
 					<th> Actions </th>
 				</tr>

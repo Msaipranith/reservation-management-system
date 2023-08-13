@@ -30,14 +30,14 @@
 					<form th:action="@{/updateUserTableById/{id}(id=${id})}" th:object="${table}" method="POST">
 						<div class="form-group">
 							<label> table Number </label>
-							<input type="number" th:field="*{tableNumber}" name="tableNumber"  class="form-control"
+							<input type="number" th:field="*{tableNumber}" name="tableNumber" class="form-control"
 								placeholder="Enter the table Number" readonly />
 						</div>
 
 						<div class="form-group">
 							<label> seating capacity </label>
 							<input type="number" th:field="*{seatingCapacity}" name="seatingCapacity"
-								class="form-control" placeholder="Enter the seating capacity" readonly/>
+								class="form-control" placeholder="Enter the seating capacity" readonly />
 						</div>
 
 						<div class="form-group">
@@ -47,13 +47,15 @@
 						</div>
 
 						<div class="form-group">
-							<label> status </label>
-							<input type="text" th:field="*{status}" name="status" class="form-control" />
+							<label for="status">Status</label>
+							<select id="status" th:field="*{status}" class="form-control">
+								<option value="available">Available</option>
+								<option value="reserved">Reserve</option>
+							</select>
 						</div>
-
 						<div class="form-group">
 							<label> userName </label>
-							<input type="text" th:field="*{userName}" name="userName" class="form-control" />
+							<input type="text" th:field="*{userName}" name="username" class="form-control" />
 						</div>
 
 						<div class="box-footer">
