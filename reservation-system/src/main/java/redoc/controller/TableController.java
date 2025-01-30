@@ -3,7 +3,7 @@ package redoc.controller;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,25 +19,35 @@ import redoc.service.DTableService;
 @Controller
 public class TableController {
 
-	@Autowired
-	private DTableService dTableService;
+	private static final String ADMIN_TABLE_LIST = "adminTableList";
+	private static final String TABLES = "tables";
+	private static final String USER_TABLE_LIST = "userTableList";
+	
 
-	@Autowired
-	DTableRepo repo;
+	private final DTableService dTableService;
+
+	private final DTableRepo dTableRepo;
+
+	public TableController(DTableService dTableService, DTableRepo repo) {
+		this.dTableService = dTableService;
+        this.dTableRepo = repo;
+
+	}
 
 	// 1st api to call adminTables
 	// handler method to handle list students and return mode and view
 	@GetMapping("/adminTableList")
 	public String listOfTables(Model model) {
-		model.addAttribute("tables", dTableService.getListTables());
+		model.addAttribute(TABLES , dTableService.getListTables());
 		// in tables list of data is stored
-		return "adminTableList";
+
+		return ADMIN_TABLE_LIST;
 	}
 
 	@GetMapping("/userTableList")
 	public String userTableList(Model model) {
-		model.addAttribute("tables", dTableService.getListTables());
-		return "userTableList";
+		model.addAttribute(TABLES , dTableService.getListTables());
+		return USER_TABLE_LIST ;
 	}
 
 	@GetMapping("/add/table")
@@ -63,9 +73,9 @@ public class TableController {
 				table.getDuration(), "available", table.getUserName());
 		dTableService.saveTableDetails(dTable);
 
-		model.addAttribute("tables", dTableService.getListTables());
+		model.addAttribute(TABLES , dTableService.getListTables());
 
-		return "adminTableList";
+		return ADMIN_TABLE_LIST;
 	}
 
 	@GetMapping("/edit/tables/{id}")
@@ -78,9 +88,9 @@ public class TableController {
 			return "edit_admin";
 		} else {
 
-			model.addAttribute("tables", dTableService.getListTables());
+			model.addAttribute(TABLES , dTableService.getListTables());
 			model.addAttribute("reserveMsg", "can't update the table because its already reserved");
-			return "adminTableList";
+			return "ADMIN_TABLE_LIST";
 		}
 
 	}
@@ -94,10 +104,10 @@ public class TableController {
 		if ("available".equals(status)) {
 			return "editUser";
 		} else {
-			model.addAttribute("tables", dTableService.getListTables());
-			model.addAttribute("message", "already registed, go for some other table");
+			model.addAttribute(TABLES , dTableService.getListTables());
+			model.addAttribute("message", "already registered, go for some other table");
 
-			return "userTableList";
+			return USER_TABLE_LIST ;
 
 		}
 	}
@@ -118,9 +128,9 @@ public class TableController {
 		System.out.println("data after updated " + dTable);
 		// save updated student object
 		dTableService.updateDTable(dTable);
-		model.addAttribute("tables", dTableService.getListTables());
+		model.addAttribute(TABLES , dTableService.getListTables());
 
-		return "adminTableList";
+		return ADMIN_TABLE_LIST;
 	}
 
 	@PostMapping("/updateUserTableById/{id}")
@@ -150,16 +160,16 @@ public class TableController {
 
 			// save updated student object
 			dTableService.updateDTable(dTable);
-			model.addAttribute("tables", dTableService.getListTables());
+			model.addAttribute(TABLES , dTableService.getListTables());
 
-			return "userTableList";
+			return USER_TABLE_LIST ;
 
 		} else {
 
-			model.addAttribute("tables", dTableService.getListTables());
+			model.addAttribute(TABLES , dTableService.getListTables());
 			model.addAttribute("message", "reserve table with in the time");
 
-			return "userTableList";
+			return USER_TABLE_LIST ;
 
 		}
 
@@ -169,28 +179,28 @@ public class TableController {
 	@GetMapping("/table/{id}")
 	public String deleteTable(@PathVariable Long id, Model model) {
 
-		String duration = repo.findById(id).get().getDuration();
+		String duration = dTableRepo.findById(id).get().getDuration();
 
 		if (duration == null) {
 			dTableService.deleteTableById(id);
 
-			model.addAttribute("tables", dTableService.getListTables());
+			model.addAttribute(TABLES , dTableService.getListTables());
 
-			return "adminTableList";
+
 
 		} else {
-			model.addAttribute("tables", dTableService.getListTables());
+			model.addAttribute(TABLES , dTableService.getListTables());
 			model.addAttribute("errMsg", "can't delete the table because its already reserved ");
-			return "adminTableList";
-		}
 
+		}
+		return ADMIN_TABLE_LIST;
 	}
 
 	@GetMapping("/usertable/{id}")
 	public String deleteUserTable(@PathVariable Long id, Model model) {
 		dTableService.deleteUserTableById(id);
 		model.addAttribute("cancelReservation", "reservation cancelled");
-		return "userTableList";
+		return USER_TABLE_LIST ;
 	}
 
 	@PostMapping("/saveTableData")
