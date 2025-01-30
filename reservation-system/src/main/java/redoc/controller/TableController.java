@@ -63,7 +63,6 @@ public class TableController {
 	@PostMapping("/saveTable")
 	public String saveTableDetails(@ModelAttribute("tableData") DTable table) {
 		dTableService.saveTableDetails(table);
-
 		return "redirect:/Tables";
 	}
 
