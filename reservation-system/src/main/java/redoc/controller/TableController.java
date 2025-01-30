@@ -47,7 +47,6 @@ public class TableController {
 		DTable dTable = new DTable();
 		model.addAttribute("tableData", dTable);
 		return "adminTable";
-
 	}
 
 	@PostMapping("/saveTable")
